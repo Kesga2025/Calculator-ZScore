@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Input Data</title>
+</head>
+<body>
+    <h2>Form Data Pengukuran</h2>
+    <form id="dataForm">
+        <input type="text" id="nama" placeholder="Nama" required><br>
+        <input type="text" id="jenis_kelamin" placeholder="Jenis Kelamin (L/P)" required><br>
+        <input type="date" id="tgl_lahir" required><br>
+        <input type="date" id="tgl_pengukuran" required><br>
+        <input type="number" id="bb" placeholder="Berat Badan (kg)" required><br>
+        <input type="number" id="tb" placeholder="Tinggi Badan (cm)" required><br>
+        <button type="submit">Kirim</button>
+    </form>
+
+    <script>
+        document.getElementById("dataForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const data = {
+                Nama: document.getElementById("nama").value,
+                Jenis_Kelamin: document.getElementById("jenis_kelamin").value,
+                Tgl_Lahir: document.getElementById("tgl_lahir").value,
+                Tgl_Pengukuran: document.getElementById("tgl_pengukuran").value,
+                BB_kg: document.getElementById("bb").value,
+                TB_cm: document.getElementById("tb").value
+            };
+
+            const response = await fetch("https://script.google.com/macros/s/AKfycbyO_5dtQGZkKbKJKmFf2i0ErfhYIOwA3vSQYZ64jfFoxuWXEKyPZe7RdnfbQqxLwgbk/exec", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/json" }
+            });
+
+            const result = await response.text();
+            alert(result);
+        });
+    </script>
+</body>
+</html>
